@@ -1,6 +1,7 @@
 import React from "react";
 import Die from "./Die";
 import { nanoid } from "nanoid";
+import Confetti from "react-confetti";
 
 export default function App() {
 
@@ -43,6 +44,11 @@ export default function App() {
     }))
   };
 
+  function newGame() {
+    setTenzies(false);
+    setDice(allNewDice());
+  }
+
   const diceElements = dice.map(die =>
     <Die
       key={die.id}
@@ -53,11 +59,12 @@ export default function App() {
 
   return (
     <main>
+      {tenzies && <Confetti />}
       <div className="dice-container">
         {diceElements}
       </div>
       {tenzies ?
-        <button className="roll-dice">Reset</button> :
+        <button className="roll-dice" onClick={newGame}>Reset</button> :
         <button className="roll-dice" onClick={rollDice}>Roll</button>}
     </main>
   )
